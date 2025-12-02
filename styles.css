@@ -1595,7 +1595,12 @@ blockquote {
 .mecha-visual {
     width: 100%;
     height: 400px;
-    background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(16, 185, 129, 0.2));
+    background:
+        linear-gradient(135deg, rgba(0, 0, 0, 0.3), rgba(6, 182, 212, 0.3)),
+        url('images/20251202_2331_Mecha Neural Synergy_simple_compose_01kbgpecejfkvby3076dgsk2br.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     border-radius: 10px;
     margin-bottom: 2rem;
     position: relative;
