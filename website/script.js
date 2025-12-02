@@ -1,3 +1,19 @@
+// ===== CHAPTER FILES CONFIGURATION =====
+// Define chapter files at the top so they're available to all functions
+const chapterFiles = {
+    'index': 'chapters/00_INDEX.html',
+    '01_world_history': 'chapters/01_WORLD_HISTORY.html',
+    '02_the_city': 'chapters/02_THE_CITY.html',
+    '03_mechanites': 'chapters/03_MECHANITES.html',
+    '04_genovores': 'chapters/04_GENOVORES.html',
+    '05_hybrid_cult': 'chapters/05_HYBRID_CULT.html',
+    '06_technology': 'chapters/06_TECHNOLOGY.html',
+    '07_characters': 'chapters/07_CHARACTERS.html',
+    '08_themes': 'chapters/08_THEMES.html',
+    '09_plot': 'chapters/09_SEASON_PLOT_OUTLINE.html',
+    '10_visual_style': 'chapters/10_VISUAL_STYLE_BIBLE.html'
+};
+
 // ===== PARTICLE BACKGROUND =====
 const particlesCanvas = document.getElementById('particles');
 const ctx = particlesCanvas.getContext('2d');
@@ -460,4 +476,191 @@ document.querySelectorAll('.concept-card, .district-card, .faction, .character-c
     el.style.transform = 'translateY(30px)';
     el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
     observer.observe(el);
+});
+
+// ===== RAIN EFFECT =====
+function createRain() {
+    const rainContainer = document.getElementById('rainContainer');
+    if (!rainContainer) {
+        console.error('Rain container not found');
+        return;
+    }
+
+    const rainCount = 50;
+
+    for (let i = 0; i < rainCount; i++) {
+        const rain = document.createElement('div');
+        rain.className = 'rain';
+        rain.style.left = Math.random() * 100 + '%';
+        rain.style.animationDuration = (Math.random() * 1 + 0.5) + 's';
+        rain.style.animationDelay = Math.random() * 2 + 's';
+        rainContainer.appendChild(rain);
+    }
+}
+
+// Initialize rain effect when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', createRain);
+} else {
+    createRain();
+}
+
+// ===== CHAPTER READER =====
+function showChapter(chapterId) {
+    console.log('showChapter called with:', chapterId);
+
+    const chapterModal = document.getElementById('chapterModal');
+
+    if (!chapterModal) {
+        console.error('Chapter modal element not found!');
+        return;
+    }
+
+    chapterModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+
+    // Update active state in sidebar
+    document.querySelectorAll('.chapter-nav a').forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('data-chapter') === chapterId) {
+            link.classList.add('active');
+        }
+    });
+
+    // Load chapter content
+    loadChapter(chapterId);
+}
+
+function closeChapter() {
+    const chapterModal = document.getElementById('chapterModal');
+    if (!chapterModal) return;
+
+    chapterModal.classList.remove('active');
+    document.body.style.overflow = 'auto';
+}
+
+async function loadChapter(chapterId) {
+    console.log('loadChapter called with:', chapterId);
+    console.log('Chapter file path:', chapterFiles[chapterId]);
+
+    const chapterContent = document.getElementById('chapterContent');
+
+    if (!chapterContent) {
+        console.error('Chapter content element not found!');
+        return;
+    }
+
+    chapterContent.innerHTML = '<div class="loading">Loading chapter...</div>';
+
+    try {
+        const filePath = chapterFiles[chapterId];
+        console.log('Fetching:', filePath);
+        const response = await fetch(filePath);
+        console.log('Response status:', response.status);
+
+        if (!response.ok) throw new Error('Chapter not found');
+
+        const html = await response.text();
+        console.log('Loaded HTML length:', html.length);
+        chapterContent.innerHTML = html;
+        chapterContent.scrollTop = 0;
+    } catch (error) {
+        console.error('Error loading chapter:', error);
+        chapterContent.innerHTML = `
+            <div class="loading">
+                <h2>Error Loading Chapter</h2>
+                <p>Could not load the chapter content. Please try again.</p>
+                <p style="color: var(--text-dim); font-size: 0.9rem;">File: ${chapterFiles[chapterId]}</p>
+                <p style="color: var(--text-dim); font-size: 0.9rem;">Error: ${error.message}</p>
+            </div>
+        `;
+    }
+}
+
+// Simple markdown to HTML converter
+function convertMarkdownToHTML(markdown) {
+    let html = markdown;
+
+    // Headers
+    html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+    html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+    html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+    html = html.replace(/^#### (.*$)/gim, '<h4>$1</h4>');
+
+    // Bold
+    html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+    // Italic
+    html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+
+    // Lists
+    html = html.replace(/^\- (.*$)/gim, '<li>$1</li>');
+    html = html.replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>');
+
+    // Blockquotes
+    html = html.replace(/^> (.*$)/gim, '<blockquote>$1</blockquote>');
+
+    // Line breaks
+    html = html.replace(/\n\n/g, '</p><p>');
+    html = '<p>' + html + '</p>';
+
+    // Clean up empty paragraphs
+    html = html.replace(/<p><\/p>/g, '');
+    html = html.replace(/<p>(<h[1-6]>)/g, '$1');
+    html = html.replace(/(<\/h[1-6]>)<\/p>/g, '$1');
+    html = html.replace(/<p>(<ul>)/g, '$1');
+    html = html.replace(/(<\/ul>)<\/p>/g, '$1');
+    html = html.replace(/<p>(<blockquote>)/g, '$1');
+    html = html.replace(/(<\/blockquote>)<\/p>/g, '$1');
+
+    return html;
+}
+
+// ===== NAVIGATION FUNCTIONS =====
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function toggleNav() {
+    const navLinks = document.getElementById('navLinks');
+    navLinks.classList.toggle('active');
+}
+
+function closeNav() {
+    const navLinks = document.getElementById('navLinks');
+    navLinks.classList.remove('active');
+}
+
+function toggleDropdown(event) {
+    event.preventDefault();
+}
+
+// ===== GALLERY VIDEO TOGGLE =====
+function toggleVideo(button) {
+    const videoItem = button.closest('.video-item');
+    const video = videoItem.querySelector('video');
+
+    if (video.paused) {
+        video.play();
+        button.textContent = '⏸';
+    } else {
+        video.pause();
+        button.textContent = '▶';
+    }
+}
+
+// Close chapter modal on escape key
+document.addEventListener('keydown', (e) => {
+    const chapterModal = document.getElementById('chapterModal');
+    if (e.key === 'Escape' && chapterModal && chapterModal.classList.contains('active')) {
+        closeChapter();
+    }
+});
+
+// Close chapter modal on background click
+document.addEventListener('click', (e) => {
+    const chapterModal = document.getElementById('chapterModal');
+    if (chapterModal && e.target === chapterModal) {
+        closeChapter();
+    }
 });

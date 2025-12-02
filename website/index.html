@@ -7,16 +7,21 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Rain Effect -->
+    <div class="rain-container" id="rainContainer"></div>
+
+    <!-- Scanlines Effect -->
+    <div class="scanlines"></div>
     <!-- Hero Section -->
     <section id="hero" class="hero">
         <div class="hero-background">
             <video autoplay muted loop playsinline class="hero-video">
                 <source src="videos/20251202_1838_New Video_simple_compose_01kbg5qv4jfb2bm9ncsta3k2bj.mp4" type="video/mp4">
             </video>
-            <canvas id="particles"></canvas>
+            <div class="hero-overlay"></div>
         </div>
         <div class="hero-content">
             <div class="glitch-wrapper">
@@ -24,33 +29,88 @@
             </div>
             <p class="tagline">Where Love Transcends Flesh and Machine</p>
             <div class="hero-subtitle">
-                <span class="mechanite">MECHANITE</span>
-                <span class="vs">×</span>
-                <span class="genovore">GENOVORE</span>
+                <span class="mechanite-text">MECHANITE</span>
+                <span class="vs-symbol">×</span>
+                <span class="genovore-text">GENOVORE</span>
             </div>
-            <button class="cta-button" onclick="scrollToSection('overview')">
-                <span>ENTER THE WORLD</span>
+            <p class="hero-description">
+                Neo-Helion, 2247. A vertical megacity divided between cybernetic and genetic evolution.<br>
+                Two heirs from rival families fall in love—their union threatening to create the hybrid future both sides fear most.
+            </p>
+            <button class="cta-button" onclick="showChapter('index')">
+                <span>EXPLORE THE BIBLE</span>
+                <div class="button-glow"></div>
             </button>
         </div>
         <div class="scroll-indicator">
-            <div class="mouse"></div>
+            <div class="mouse-icon"></div>
+            <span>SCROLL TO EXPLORE</span>
         </div>
     </section>
 
     <!-- Navigation -->
-    <nav id="navbar">
+    <nav id="navbar" class="navbar">
         <div class="nav-container">
-            <div class="logo">SH</div>
-            <ul class="nav-links">
-                <li><a href="#overview">Overview</a></li>
-                <li><a href="#world">World</a></li>
-                <li><a href="#factions">Factions</a></li>
-                <li><a href="#characters">Characters</a></li>
-                <li><a href="#story">Story</a></li>
-                <li><a href="#visuals">Visuals</a></li>
+            <div class="logo" onclick="scrollToTop()">
+                <span class="logo-text">SYNTHETIC</span>
+                <span class="logo-heart">♥</span>
+                <span class="logo-text">HEARTS</span>
+            </div>
+            <button class="nav-toggle" onclick="toggleNav()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#hero" onclick="closeNav()">Home</a></li>
+                <li><a href="#" onclick="showChapter('index'); closeNav()">Index</a></li>
+                <li class="nav-dropdown">
+                    <a href="#" onclick="toggleDropdown(event)">Chapters ▼</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" onclick="showChapter('01_world_history'); closeNav()">01. World History</a></li>
+                        <li><a href="#" onclick="showChapter('02_the_city'); closeNav()">02. The City</a></li>
+                        <li><a href="#" onclick="showChapter('03_mechanites'); closeNav()">03. Mechanites</a></li>
+                        <li><a href="#" onclick="showChapter('04_genovores'); closeNav()">04. Genovores</a></li>
+                        <li><a href="#" onclick="showChapter('05_hybrid_cult'); closeNav()">05. Hybrid Cult</a></li>
+                        <li><a href="#" onclick="showChapter('06_technology'); closeNav()">06. Technology</a></li>
+                        <li><a href="#" onclick="showChapter('07_characters'); closeNav()">07. Characters</a></li>
+                        <li><a href="#" onclick="showChapter('08_themes'); closeNav()">08. Themes</a></li>
+                        <li><a href="#" onclick="showChapter('09_plot'); closeNav()">09. Plot Outline</a></li>
+                        <li><a href="#" onclick="showChapter('10_visual_style'); closeNav()">10. Visual Style</a></li>
+                    </ul>
+                </li>
+                <li><a href="#gallery" onclick="closeNav()">Gallery</a></li>
             </ul>
         </div>
     </nav>
+
+    <!-- Chapter Reader Modal -->
+    <div id="chapterModal" class="chapter-modal">
+        <div class="chapter-container">
+            <button class="close-chapter" onclick="closeChapter()">
+                <span>×</span>
+            </button>
+            <div class="chapter-sidebar">
+                <h3>CHAPTERS</h3>
+                <ul class="chapter-nav">
+                    <li><a href="#" onclick="showChapter('index')" data-chapter="index">00. Index</a></li>
+                    <li><a href="#" onclick="showChapter('01_world_history')" data-chapter="01_world_history">01. World History</a></li>
+                    <li><a href="#" onclick="showChapter('02_the_city')" data-chapter="02_the_city">02. The City</a></li>
+                    <li><a href="#" onclick="showChapter('03_mechanites')" data-chapter="03_mechanites">03. Mechanites</a></li>
+                    <li><a href="#" onclick="showChapter('04_genovores')" data-chapter="04_genovores">04. Genovores</a></li>
+                    <li><a href="#" onclick="showChapter('05_hybrid_cult')" data-chapter="05_hybrid_cult">05. Hybrid Cult</a></li>
+                    <li><a href="#" onclick="showChapter('06_technology')" data-chapter="06_technology">06. Technology</a></li>
+                    <li><a href="#" onclick="showChapter('07_characters')" data-chapter="07_characters">07. Characters</a></li>
+                    <li><a href="#" onclick="showChapter('08_themes')" data-chapter="08_themes">08. Themes</a></li>
+                    <li><a href="#" onclick="showChapter('09_plot')" data-chapter="09_plot">09. Plot Outline</a></li>
+                    <li><a href="#" onclick="showChapter('10_visual_style')" data-chapter="10_visual_style">10. Visual Style</a></li>
+                </ul>
+            </div>
+            <div class="chapter-content" id="chapterContent">
+                <div class="loading">Loading chapter...</div>
+            </div>
+        </div>
+    </div>
 
     <!-- Overview Section -->
     <section id="overview" class="section overview-section">
@@ -433,33 +493,87 @@
         </div>
     </section>
 
+    <!-- Gallery Section -->
+    <section id="gallery" class="section gallery-section">
+        <div class="container">
+            <h2 class="section-title">VISUAL GALLERY</h2>
+            <p class="section-subtitle">Concept Art & Media from Neo-Helion</p>
+
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="images/20251202_1843_Neo-Helion Duality_simple_compose_01kbg5xpc0e41amjx7dwnhcf06.png" alt="Neo-Helion Duality">
+                    <div class="gallery-overlay">
+                        <h4>Neo-Helion Duality</h4>
+                        <p>The city divided between Mechanite and Genovore territories</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="images/20251125_2258_Cyborg Under Neon Skies_simple_compose_01kaykqaxhfg0tway7qy9re77w.png" alt="Cyborg Under Neon Skies">
+                    <div class="gallery-overlay">
+                        <h4>Cyborg Under Neon Skies</h4>
+                        <p>A Mechanite warrior in the Upper Machinarium</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="images/20251125_1739_Mecha vs Genetic Warfare_simple_compose_01kay1en4afm19q9mwy0thhs3q.png" alt="Mecha vs Genetic Warfare">
+                    <div class="gallery-overlay">
+                        <h4>Mecha vs Genetic Warfare</h4>
+                        <p>The eternal conflict between steel and flesh</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="images/20251202_1843_Eerie Cult Chamber_simple_compose_01kbg5y8zee4k92hbdr12a7sjm.png" alt="Eerie Cult Chamber">
+                    <div class="gallery-overlay">
+                        <h4>Hybrid Cult Sanctuary</h4>
+                        <p>The secret chamber where synthesis is born</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item video-item">
+                    <video loop muted playsinline class="gallery-video">
+                        <source src="videos/20251202_1838_New Video_simple_compose_01kbg5qv4jfb2bm9ncsta3k2bj.mp4" type="video/mp4">
+                    </video>
+                    <div class="gallery-overlay">
+                        <h4>Neo-Helion Atmosphere</h4>
+                        <p>The living, breathing city</p>
+                    </div>
+                    <button class="play-button" onclick="toggleVideo(this)">▶</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">
                     <h2>SYNTHETIC HEARTS</h2>
-                    <p>A Universe Bible by David Geismar</p>
+                    <p>A Universe Bible</p>
+                    <div class="footer-tagline">Where Love Transcends Flesh and Machine</div>
                 </div>
                 <div class="footer-links">
-                    <h4>Explore</h4>
+                    <h4>Navigate</h4>
                     <ul>
+                        <li><a href="#hero">Home</a></li>
+                        <li><a href="#" onclick="showChapter('index')">Read the Bible</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
                         <li><a href="#overview">Overview</a></li>
-                        <li><a href="#world">World</a></li>
-                        <li><a href="#factions">Factions</a></li>
-                        <li><a href="#characters">Characters</a></li>
-                        <li><a href="#story">Story</a></li>
-                        <li><a href="#visuals">Visuals</a></li>
                     </ul>
                 </div>
                 <div class="footer-info">
-                    <h4>Production Ready</h4>
-                    <p>Designed for graphic novels, anime, TV series, films, and transmedia franchises.</p>
+                    <h4>About</h4>
+                    <p>Neo-Helion, 2247. A vertical megacity divided between cybernetic and genetic evolution.</p>
+                    <p>Designed for anime, TV series, films, and transmedia franchises.</p>
                     <p class="copyright">© 2024 Synthetic Hearts Universe. All rights reserved.</p>
                 </div>
             </div>
             <div class="footer-quote">
                 <p>"For never was a story of more woe, than this of Julienne and her Romeo."</p>
+                <span class="quote-author">— The First Hybrid</span>
             </div>
         </div>
     </footer>
