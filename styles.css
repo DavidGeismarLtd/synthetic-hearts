@@ -155,7 +155,7 @@ body {
     height: auto;
     transform: translate(-50%, -50%);
     object-fit: cover;
-    opacity: 0.25;
+    opacity: 0.6;
     z-index: 0;
     filter: brightness(0.6) contrast(1.2);
 }
@@ -821,18 +821,20 @@ body {
 }
 
 .work-tag {
-    background: rgba(139, 92, 246, 0.1);
-    border: 1px solid var(--genovore-secondary);
+    background: rgba(0, 217, 255, 0.1);
+    border: 1px solid var(--neon-blue);
     padding: 0.8rem 1.5rem;
     border-radius: 25px;
     font-weight: 600;
-    color: var(--genovore-secondary);
+    color: var(--neon-blue);
     transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 217, 255, 0.2);
 }
 
 .work-tag:hover {
-    background: rgba(139, 92, 246, 0.2);
+    background: rgba(0, 217, 255, 0.2);
     transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(0, 217, 255, 0.4);
 }
 
 /* ===== WORLD SECTION ===== */
