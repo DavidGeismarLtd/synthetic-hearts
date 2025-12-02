@@ -1170,10 +1170,21 @@ body {
     height: 400px;
     background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(6, 182, 212, 0.4));
     position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
-.julienne-card .character-portrait {
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(139, 92, 246, 0.4));
+#romeoPortrait {
+    background-image:
+        linear-gradient(135deg, rgba(0, 0, 0, 0.3), rgba(6, 182, 212, 0.3)),
+        url('images/20251202_2324_Melancholic Cyborg Portrait_romeo.png');
+}
+
+#juliennePortrait {
+    background-image:
+        linear-gradient(135deg, rgba(0, 0, 0, 0.3), rgba(16, 185, 129, 0.3)),
+        url('images/20251202_2325_Portrait_julienne.png');
 }
 
 .character-info {
