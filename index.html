@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYNTHETIC HEARTS - Universe Bible</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Rain Effect -->
+    <div class="rain-container" id="rainContainer"></div>
+
+    <!-- Scanlines Effect -->
+    <div class="scanlines"></div>
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="hero-background">
+            <video autoplay muted loop playsinline class="hero-video">
+                <source src="videos/20251202_1838_New Video_simple_compose_01kbg5qv4jfb2bm9ncsta3k2bj.mp4" type="video/mp4">
+            </video>
+            <div class="hero-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <div class="glitch-wrapper">
+                <h1 class="glitch" data-text="SYNTHETIC HEARTS">SYNTHETIC HEARTS</h1>
+            </div>
+            <p class="tagline">Where Love Transcends Flesh and Machine</p>
+            <div class="hero-subtitle">
+                <span class="mechanite-text">MECHANITE</span>
+                <span class="vs-symbol">×</span>
+                <span class="genovore-text">GENOVORE</span>
+            </div>
+            <p class="hero-description">
+                Neo-Helion, 2247. A vertical megacity divided between cybernetic and genetic evolution.<br>
+                Two heirs from rival families fall in love—their union threatening to create the hybrid future both sides fear most.
+            </p>
+            <button class="cta-button" onclick="showChapter('index')">
+                <span>EXPLORE THE BIBLE</span>
+                <div class="button-glow"></div>
+            </button>
+        </div>
+        <div class="scroll-indicator">
+            <div class="mouse-icon"></div>
+            <span>SCROLL TO EXPLORE</span>
+        </div>
+    </section>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="navbar">
+        <div class="nav-container">
+            <div class="logo" onclick="scrollToTop()">
+                <span class="logo-text">SYNTHETIC</span>
+                <span class="logo-heart">♥</span>
+                <span class="logo-text">HEARTS</span>
+            </div>
+            <button class="nav-toggle" onclick="toggleNav()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#hero" onclick="closeNav()">Home</a></li>
+                <li><a href="#" onclick="showChapter('index'); closeNav()">Index</a></li>
+                <li class="nav-dropdown">
+                    <a href="#" onclick="toggleDropdown(event)">Chapters ▼</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" onclick="showChapter('01_world_history'); closeNav()">01. World History</a></li>
+                        <li><a href="#" onclick="showChapter('02_the_city'); closeNav()">02. The City</a></li>
+                        <li><a href="#" onclick="showChapter('03_mechanites'); closeNav()">03. Mechanites</a></li>
+                        <li><a href="#" onclick="showChapter('04_genovores'); closeNav()">04. Genovores</a></li>
+                        <li><a href="#" onclick="showChapter('05_hybrid_cult'); closeNav()">05. Hybrid Cult</a></li>
+                        <li><a href="#" onclick="showChapter('06_technology'); closeNav()">06. Technology</a></li>
+                        <li><a href="#" onclick="showChapter('07_characters'); closeNav()">07. Characters</a></li>
+                        <li><a href="#" onclick="showChapter('08_themes'); closeNav()">08. Themes</a></li>
+                        <li><a href="#" onclick="showChapter('09_plot'); closeNav()">09. Plot Outline</a></li>
+                        <li><a href="#" onclick="showChapter('10_visual_style'); closeNav()">10. Visual Style</a></li>
+                    </ul>
+                </li>
+                <li><a href="#gallery" onclick="closeNav()">Gallery</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Chapter Reader Modal -->
+    <div id="chapterModal" class="chapter-modal">
+        <div class="chapter-container">
+            <button class="close-chapter" onclick="closeChapter()">
+                <span>×</span>
+            </button>
+            <div class="chapter-sidebar">
+                <h3>CHAPTERS</h3>
+                <ul class="chapter-nav">
+                    <li><a href="#" onclick="showChapter('index')" data-chapter="index">00. Index</a></li>
+                    <li><a href="#" onclick="showChapter('01_world_history')" data-chapter="01_world_history">01. World History</a></li>
+                    <li><a href="#" onclick="showChapter('02_the_city')" data-chapter="02_the_city">02. The City</a></li>
+                    <li><a href="#" onclick="showChapter('03_mechanites')" data-chapter="03_mechanites">03. Mechanites</a></li>
+                    <li><a href="#" onclick="showChapter('04_genovores')" data-chapter="04_genovores">04. Genovores</a></li>
+                    <li><a href="#" onclick="showChapter('05_hybrid_cult')" data-chapter="05_hybrid_cult">05. Hybrid Cult</a></li>
+                    <li><a href="#" onclick="showChapter('06_technology')" data-chapter="06_technology">06. Technology</a></li>
+                    <li><a href="#" onclick="showChapter('07_characters')" data-chapter="07_characters">07. Characters</a></li>
+                    <li><a href="#" onclick="showChapter('08_themes')" data-chapter="08_themes">08. Themes</a></li>
+                    <li><a href="#" onclick="showChapter('09_plot')" data-chapter="09_plot">09. Plot Outline</a></li>
+                    <li><a href="#" onclick="showChapter('10_visual_style')" data-chapter="10_visual_style">10. Visual Style</a></li>
+                </ul>
+            </div>
+            <div class="chapter-content" id="chapterContent">
+                <div class="loading">Loading chapter...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overview Section -->
+    <section id="overview" class="section overview-section">
+        <div class="container">
+            <h2 class="section-title">HIGH CONCEPT</h2>
+            <div class="concept-grid">
+                <div class="concept-card">
+                    <div class="concept-icon">🤖</div>
+                    <h3>The Logline</h3>
+                    <p>In a megacity divided between mechanical and genetic evolution, two heirs from rival families fall in love—their union threatening to create the hybrid future both sides fear most.</p>
+                </div>
+                <div class="concept-card">
+                    <div class="concept-icon">💔</div>
+                    <h3>The Story</h3>
+                    <p><strong>Romeo & Juliet</strong> meets <strong>Ghost in the Shell</strong> in a biopunk mecha world where love is the ultimate forbidden augmentation.</p>
+                </div>
+                <div class="concept-card">
+                    <div class="concept-icon">🌆</div>
+                    <h3>The Setting</h3>
+                    <p>Neo-Helion, 2247. A vertical megacity where chrome towers clash with bioluminescent forests. Where consciousness can be uploaded and DNA rewritten.</p>
+                </div>
+            </div>
+
+            <div class="comparable-works">
+                <h3>Comparable Works</h3>
+                <div class="works-grid">
+                    <div class="work-tag">Ghost in the Shell</div>
+                    <div class="work-tag">Cyberpunk: Edgerunners</div>
+                    <div class="work-tag">Blade Runner 2049</div>
+                    <div class="work-tag">Neon Genesis Evangelion</div>
+                    <div class="work-tag">Romeo + Juliet</div>
+                    <div class="work-tag">Gattaca</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- World Section -->
+    <section id="world" class="section world-section">
+        <div class="container">
+            <h2 class="section-title">NEO-HELION</h2>
+            <p class="section-subtitle">A City Divided by Philosophy, United by Necessity</p>
+
+            <div class="city-visual">
+                <img src="images/20251202_1843_Neo-Helion Duality_simple_compose_01kbg5xpc0e41amjx7dwnhcf06.png" alt="Neo-Helion City - Mechanite and Genovore Duality" class="city-image">
+            </div>
+
+            <div class="districts-grid">
+                <div class="district-card mechanite-district">
+                    <div class="district-header">
+                        <h3>THE UPPER MACHINARIUM</h3>
+                        <span class="altitude">1,500m - 3,000m</span>
+                    </div>
+                    <div class="district-content">
+                        <p>Chrome spires pierce the sky. Floating highways carry silent mechas. The air is sterile, controlled, perfect. Here, the Mechanites pursue transcendence through engineering.</p>
+                        <ul class="district-features">
+                            <li>🏢 The Nexus Spire - Vaelor headquarters</li>
+                            <li>🤖 Mecha Hangars - Cathedral-sized war machines</li>
+                            <li>💾 Memory Vaults - Consciousness backups</li>
+                            <li>⚡ Neural Academies - Augmentation training</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="district-card genovore-district">
+                    <div class="district-header">
+                        <h3>THE VERDANT DEPTHS</h3>
+                        <span class="altitude">Sea Level - 1,500m</span>
+                    </div>
+                    <div class="district-content">
+                        <p>Bioluminescent forests breathe through living buildings. Vines pulse with data. The air is thick with life, emotion, possibility. Here, the Genovores sculpt evolution itself.</p>
+                        <ul class="district-features">
+                            <li>🌳 The Helix Throne - Vyr palace, grown from a single seed</li>
+                            <li>🧬 Gene Pools - Where DNA is rewritten</li>
+                            <li>🦋 Symbiote Gardens - Living companions cultivated</li>
+                            <li>📚 Living Libraries - Knowledge stored in DNA</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="district-card neutral-district">
+                    <div class="district-header">
+                        <h3>THE VESTIGE RING</h3>
+                        <span class="altitude">500m - 1,500m</span>
+                    </div>
+                    <div class="district-content">
+                        <p>Where chrome meets vine. Where outcasts trade forbidden augmentations. Where Romeo and Julienne meet in secret, in the ruins of the old world.</p>
+                        <ul class="district-features">
+                            <li>🏚️ The Forgotten Cathedral - Their sanctuary</li>
+                            <li>🛒 The Splice Market - Illegal hybrid tech</li>
+                            <li>💡 The Neon Bazaar - 24/7 black market</li>
+                            <li>🕵️ The Data Dens - Hacker collectives</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Factions Section -->
+    <section id="factions" class="section factions-section">
+        <div class="container">
+            <h2 class="section-title">THE FACTIONS</h2>
+            <p class="section-subtitle">Two Philosophies. One Future. Zero Compromise.</p>
+
+            <div class="faction-comparison">
+                <div class="faction mechanite-faction">
+                    <div class="faction-visual" id="mechaniteVisual">
+                        <img src="images/20251125_2258_Cyborg Under Neon Skies_simple_compose_01kaykqaxhfg0tway7qy9re77w.png" alt="Mechanite Cyborg" class="faction-image">
+                    </div>
+                    <h3>THE MECHANITES</h3>
+                    <p class="faction-motto">"Perfection Through Engineering"</p>
+
+                    <div class="faction-details">
+                        <h4>Core Beliefs</h4>
+                        <ul>
+                            <li>Flesh is limitation</li>
+                            <li>Consciousness is software</li>
+                            <li>Emotion is evolutionary baggage</li>
+                            <li>Death is a solvable problem</li>
+                        </ul>
+
+                        <h4>Enhancements</h4>
+                        <ul>
+                            <li>Cybernetic limbs & organs</li>
+                            <li>Neural cores & memory backup</li>
+                            <li>Mecha-linked consciousness</li>
+                            <li>Emotion regulation systems</li>
+                        </ul>
+
+                        <h4>The Crisis: THE FADE</h4>
+                        <p>Memory corruption spreading through older augmentations. Identity fragmenting. No cure.</p>
+                    </div>
+                </div>
+
+                <div class="vs-divider">
+                    <div class="vs-symbol">⚔️</div>
+                </div>
+
+                <div class="faction genovore-faction">
+                    <div class="faction-visual" id="genovoreVisual">
+                        <img src="images/20251125_1739_Mecha vs Genetic Warfare_simple_compose_01kay1en4afm19q9mwy0thhs3q.png" alt="Mecha vs Genetic Warfare" class="faction-image">
+                    </div>
+                    <h3>THE GENOVORES</h3>
+                    <p class="faction-motto">"Perfection Through Evolution"</p>
+
+                    <div class="faction-details">
+                        <h4>Core Beliefs</h4>
+                        <ul>
+                            <li>Biology is infinite potential</li>
+                            <li>Consciousness emerges from complexity</li>
+                            <li>Emotion is evolutionary advantage</li>
+                            <li>Death is transformation</li>
+                        </ul>
+
+                        <h4>Enhancements</h4>
+                        <ul>
+                            <li>Adaptive physiology & regeneration</li>
+                            <li>Animal-inspired abilities</li>
+                            <li>Empathic resonance</li>
+                            <li>Bioluminescent communication</li>
+                        </ul>
+
+                        <h4>The Crisis: THE SPIRAL MUTATION</h4>
+                        <p>Uncontrolled transformation in the young. Bodies betraying minds. No cure.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hybrid-section">
+                <div class="hybrid-visual">
+                    <img src="images/20251202_1843_Eerie Cult Chamber_simple_compose_01kbg5y8zee4k92hbdr12a7sjm.png" alt="Hybrid Cult Chamber" class="hybrid-image">
+                </div>
+                <h3>THE HYBRID CULT</h3>
+                <p class="hybrid-tagline">"Transcendence Through Unity"</p>
+                <p>In the shadows, a third path emerges. Those who refuse to choose. Those who believe the future requires synthesis, not purity. The families call them abomination. They call themselves hope.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Characters Section -->
+    <section id="characters" class="section characters-section">
+        <div class="container">
+            <h2 class="section-title">THE LOVERS</h2>
+
+            <div class="characters-grid">
+                <div class="character-card romeo-card">
+                    <div class="character-portrait" id="romeoPortrait"></div>
+                    <div class="character-info">
+                        <h3>R0-M3O</h3>
+                        <p class="character-subtitle">Romeo Vaelor • Age 22 • Mechanite Heir</p>
+                        <p class="character-description">
+                            75% cybernetic. Designed to be the perfect Mechanite heir. But something went wrong—or right.
+                            His emotion regulation never integrated. He <em>feels</em> more than any Mechanite should.
+                        </p>
+                        <div class="character-traits">
+                            <span class="trait">Mecha Pilot</span>
+                            <span class="trait">Emotional</span>
+                            <span class="trait">Conflicted</span>
+                            <span class="trait">Romantic</span>
+                        </div>
+                        <blockquote>"I don't care what you are. I care who you are."</blockquote>
+                    </div>
+                </div>
+
+                <div class="character-card julienne-card">
+                    <div class="character-portrait" id="juliennePortrait"></div>
+                    <div class="character-info">
+                        <h3>JULIENNE VYR</h3>
+                        <p class="character-subtitle">Juliet • Age 20 • Genovore Prodigy</p>
+                        <p class="character-description">
+                            A genetic masterpiece. Can reshape her own DNA consciously. Feels everything intensely through
+                            empathic resonance. Her gift is also her curse—she's drowning in emotion.
+                        </p>
+                        <div class="character-traits">
+                            <span class="trait">Gene-Sculptor</span>
+                            <span class="trait">Empathic</span>
+                            <span class="trait">Transforming</span>
+                            <span class="trait">Passionate</span>
+                        </div>
+                        <blockquote>"You're not a machine. I can feel your heart."</blockquote>
+                    </div>
+                </div>
+            </div>
+
+            <div class="supporting-characters">
+                <h3>Supporting Cast</h3>
+                <div class="supporting-grid">
+                    <div class="support-card">
+                        <h4>Nexus Lord Vaelor</h4>
+                        <p>Romeo's father. 90% cybernetic. Believes emotion is weakness. Loves his son but doesn't understand him.</p>
+                    </div>
+                    <div class="support-card">
+                        <h4>Matriarch Helia Vyr</h4>
+                        <p>Julienne's mother. Designed her daughter to be perfect. Loves her as a creation, not a person.</p>
+                    </div>
+                    <div class="support-card">
+                        <h4>M3RC-UT10 (Mercutio)</h4>
+                        <p>Romeo's best friend. Rogue Mechanite who refuses emotion suppression. Charismatic, reckless, loyal.</p>
+                    </div>
+                    <div class="support-card">
+                        <h4>Ty-Balt Vyr (Tybalt)</h4>
+                        <p>Julienne's cousin. Violent, proud, protective. Hates Mechanites. Would kill anyone who hurt her.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section id="story" class="section story-section">
+        <div class="container">
+            <h2 class="section-title">THE TRAGEDY</h2>
+            <p class="section-subtitle">A Love That Could Unite Two Worlds—Or Destroy Them Both</p>
+
+            <div class="story-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker act1"></div>
+                    <div class="timeline-content">
+                        <h3>ACT I: THE MEETING</h3>
+                        <p>During a riot in the Vestige Ring, Romeo saves Julienne's life. Their eyes meet. She feels his emotions—impossible for a Mechanite. He sees her bioluminescence—the most beautiful thing he's ever witnessed. They're from enemy families. They fall in love anyway.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker act2"></div>
+                    <div class="timeline-content">
+                        <h3>ACT II: THE LOVE</h3>
+                        <p>Secret meetings in the Forgotten Cathedral. Their bodies begin to change—his cybernetics pulse with bioluminescence, her genetics interface with technology. They're becoming hybrid. They seek the Cult, marry in secret. But Tybalt discovers them. Mercutio dies. Romeo kills Tybalt in rage. War is inevitable.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker act3"></div>
+                    <div class="timeline-content">
+                        <h3>ACT III: THE TRAGEDY</h3>
+                        <p>Julienne takes genetic stasis to fake her death. The message to Romeo is intercepted. He finds her "dead" and shuts down his systems to die beside her. She wakes to find him gone. Her grief triggers the Spiral Mutation. She dies transforming. Both families find them intertwined, becoming something beautiful even in death.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker epilogue"></div>
+                    <div class="timeline-content">
+                        <h3>EPILOGUE: THE HOPE</h3>
+                        <p>Their deaths stop the war. Both families begin working together to cure the Fade and Spiral Mutation. Hybrid research is no longer forbidden. The first healthy hybrid child is born. Romeo and Julienne's sacrifice births the future they died for.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="themes-section">
+                <h3>Core Themes</h3>
+                <div class="themes-grid">
+                    <div class="theme-card">
+                        <h4>What Makes Us Human?</h4>
+                        <p>If you replace every part, are you still you? If you change your DNA, are you still you?</p>
+                    </div>
+                    <div class="theme-card">
+                        <h4>The Body as Battleground</h4>
+                        <p>Identity, modification, transformation. Where does the self live—body, mind, or soul?</p>
+                    </div>
+                    <div class="theme-card">
+                        <h4>Love as Corruption vs. Salvation</h4>
+                        <p>Their love is forbidden, dangerous, transformative. It could save both peoples—or destroy them.</p>
+                    </div>
+                    <div class="theme-card">
+                        <h4>Purity vs. Hybrid Existence</h4>
+                        <p>Both philosophies are incomplete. Maybe the future requires synthesis, not separation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Visuals Section -->
+    <section id="visuals" class="section visuals-section">
+        <div class="container">
+            <h2 class="section-title">VISUAL IDENTITY</h2>
+
+            <div class="visual-comparison">
+                <div class="visual-column mechanite-visual">
+                    <h3>MECHANITE AESTHETIC</h3>
+                    <div class="color-palette">
+                        <div class="color-swatch" style="background: #C0C0C0;"></div>
+                        <div class="color-swatch" style="background: #1E3A8A;"></div>
+                        <div class="color-swatch" style="background: #06B6D4;"></div>
+                        <div class="color-swatch" style="background: #000000;"></div>
+                    </div>
+                    <ul class="visual-traits">
+                        <li>Chrome & titanium architecture</li>
+                        <li>Geometric precision</li>
+                        <li>Blue-white lighting</li>
+                        <li>Hard edges, clean lines</li>
+                        <li>Holographic displays</li>
+                        <li>Sterile, controlled atmosphere</li>
+                    </ul>
+                </div>
+
+                <div class="visual-column genovore-visual">
+                    <h3>GENOVORE AESTHETIC</h3>
+                    <div class="color-palette">
+                        <div class="color-swatch" style="background: #10B981;"></div>
+                        <div class="color-swatch" style="background: #8B5CF6;"></div>
+                        <div class="color-swatch" style="background: #3B82F6;"></div>
+                        <div class="color-swatch" style="background: #F59E0B;"></div>
+                    </div>
+                    <ul class="visual-traits">
+                        <li>Bioluminescent forests</li>
+                        <li>Organic curves & flow</li>
+                        <li>Green-purple glow</li>
+                        <li>Soft edges, natural forms</li>
+                        <li>Living displays</li>
+                        <li>Humid, breathing atmosphere</li>
+                    </ul>
+                </div>
+
+                <div class="visual-column hybrid-visual">
+                    <h3>HYBRID AESTHETIC</h3>
+                    <div class="color-palette">
+                        <div class="color-swatch" style="background: #A855F7;"></div>
+                        <div class="color-swatch" style="background: #6EE7B7;"></div>
+                        <div class="color-swatch" style="background: #EF4444;"></div>
+                        <div class="color-swatch" style="background: #FCD34D;"></div>
+                    </div>
+                    <ul class="visual-traits">
+                        <li>Chrome with bioluminescence</li>
+                        <li>Conflicting geometries</li>
+                        <li>Purple synthesis glow</li>
+                        <li>Beautiful & disturbing</li>
+                        <li>Unstable, flickering</li>
+                        <li>Neither cold nor warm—both</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mecha-showcase">
+                <h3>MECHA DESIGN</h3>
+                <div class="mecha-visual" id="mechaVisual"></div>
+                <p>Neural drift-controlled war machines. The pilot's consciousness extends into the mecha. Damage to the machine is felt as pain. Identity blurs between flesh and steel.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="section gallery-section">
+        <div class="container">
+            <h2 class="section-title">VISUAL GALLERY</h2>
+            <p class="section-subtitle">Concept Art & Media from Neo-Helion</p>
+
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="images/20251202_1843_Neo-Helion Duality_simple_compose_01kbg5xpc0e41amjx7dwnhcf06.png" alt="Neo-Helion Duality">
+                    <div class="gallery-overlay">
+                        <h4>Neo-Helion Duality</h4>
+                        <p>The city divided between Mechanite and Genovore territories</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="images/20251125_2258_Cyborg Under Neon Skies_simple_compose_01kaykqaxhfg0tway7qy9re77w.png" alt="Cyborg Under Neon Skies">
+                    <div class="gallery-overlay">
+                        <h4>Cyborg Under Neon Skies</h4>
+                        <p>A Mechanite warrior in the Upper Machinarium</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="images/20251125_1739_Mecha vs Genetic Warfare_simple_compose_01kay1en4afm19q9mwy0thhs3q.png" alt="Mecha vs Genetic Warfare">
+                    <div class="gallery-overlay">
+                        <h4>Mecha vs Genetic Warfare</h4>
+                        <p>The eternal conflict between steel and flesh</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="images/20251202_1843_Eerie Cult Chamber_simple_compose_01kbg5y8zee4k92hbdr12a7sjm.png" alt="Eerie Cult Chamber">
+                    <div class="gallery-overlay">
+                        <h4>Hybrid Cult Sanctuary</h4>
+                        <p>The secret chamber where synthesis is born</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item video-item">
+                    <video loop muted playsinline class="gallery-video">
+                        <source src="videos/20251202_1838_New Video_simple_compose_01kbg5qv4jfb2bm9ncsta3k2bj.mp4" type="video/mp4">
+                    </video>
+                    <div class="gallery-overlay">
+                        <h4>Neo-Helion Atmosphere</h4>
+                        <p>The living, breathing city</p>
+                    </div>
+                    <button class="play-button" onclick="toggleVideo(this)">▶</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>SYNTHETIC HEARTS</h2>
+                    <p>A Universe Bible</p>
+                    <div class="footer-tagline">Where Love Transcends Flesh and Machine</div>
+                </div>
+                <div class="footer-links">
+                    <h4>Navigate</h4>
+                    <ul>
+                        <li><a href="#hero">Home</a></li>
+                        <li><a href="#" onclick="showChapter('index')">Read the Bible</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                        <li><a href="#overview">Overview</a></li>
+                    </ul>
+                </div>
+                <div class="footer-info">
+                    <h4>About</h4>
+                    <p>Neo-Helion, 2247. A vertical megacity divided between cybernetic and genetic evolution.</p>
+                    <p>Designed for anime, TV series, films, and transmedia franchises.</p>
+                    <p class="copyright">© 2024 Synthetic Hearts Universe. All rights reserved.</p>
+                </div>
+            </div>
+            <div class="footer-quote">
+                <p>"For never was a story of more woe, than this of Julienne and her Romeo."</p>
+                <span class="quote-author">— The First Hybrid</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
