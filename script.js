@@ -527,6 +527,12 @@ function showChapter(chapterId) {
         }
     });
 
+    // Close sidebar on mobile after selection
+    const sidebar = document.getElementById('chapterSidebar');
+    if (sidebar && window.innerWidth <= 768) {
+        sidebar.classList.remove('active');
+    }
+
     // Load chapter content
     loadChapter(chapterId);
 }
@@ -537,6 +543,19 @@ function closeChapter() {
 
     chapterModal.classList.remove('active');
     document.body.style.overflow = 'auto';
+
+    // Close sidebar if open on mobile
+    const sidebar = document.getElementById('chapterSidebar');
+    if (sidebar) {
+        sidebar.classList.remove('active');
+    }
+}
+
+function toggleChapterNav() {
+    const sidebar = document.getElementById('chapterSidebar');
+    if (!sidebar) return;
+
+    sidebar.classList.toggle('active');
 }
 
 async function loadChapter(chapterId) {

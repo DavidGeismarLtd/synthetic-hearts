@@ -37,7 +37,7 @@
                 Neo-Helion, 2247. A vertical megacity divided between cybernetic and genetic evolution.<br>
                 Two heirs from rival families fall in love—their union threatening to create the hybrid future both sides fear most.
             </p>
-            <button class="cta-button" onclick="showChapter('index')">
+            <button class="cta-button desktop-cta" onclick="showChapter('index')">
                 <span>EXPLORE THE BIBLE</span>
                 <div class="button-glow"></div>
             </button>
@@ -45,6 +45,16 @@
         <div class="scroll-indicator">
             <div class="mouse-icon"></div>
             <span>SCROLL TO EXPLORE</span>
+        </div>
+    </section>
+
+    <!-- Mobile CTA Section -->
+    <section class="mobile-cta-section">
+        <div class="container">
+            <button class="cta-button mobile-cta" onclick="showChapter('index')">
+                <span>EXPLORE THE BIBLE</span>
+                <div class="button-glow"></div>
+            </button>
         </div>
     </section>
 
@@ -90,7 +100,12 @@
             <button class="close-chapter" onclick="closeChapter()">
                 <span>×</span>
             </button>
-            <div class="chapter-sidebar">
+            <!-- Mobile Chapter Menu Toggle -->
+            <button class="mobile-chapter-toggle" onclick="toggleChapterNav()">
+                <span class="hamburger-icon">☰</span>
+                <span class="menu-text">CHAPTERS</span>
+            </button>
+            <div class="chapter-sidebar" id="chapterSidebar">
                 <h3>CHAPTERS</h3>
                 <ul class="chapter-nav">
                     <li><a href="#" onclick="showChapter('index')" data-chapter="index">00. Index</a></li>
